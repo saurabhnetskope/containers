@@ -347,8 +347,8 @@ etcd_configure_rbac() {
 is_new_etcd_cluster() {
     local -a extra_flags
     read -r -a extra_flags <<<"$(etcdctl_auth_flags)"
-    is_boolean_yes "$ETCD_ON_K8S" && extra_flags+=("--endpoints=$(etcdctl_get_endpoints)")
-    ! debug_execute etcdctl endpoint status --cluster "${extra_flags[@]}"
+    is_boolean_yes "$ETCD_ON_K8S" && extra_flags+=("--endpoints=$(etcdctl_get_endpoints true)")
+    ! debug_execute etcdctl endpoint status "${extra_flags[@]}"
 }
 
 ########################
